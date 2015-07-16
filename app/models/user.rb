@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   private
 
   def update_access_token!
-    self.access_token = Tokens::new_access_token(self)
+    self.access_token = AccessTokens::new_access_token(self)
     self.save!
   end
 
