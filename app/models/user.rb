@@ -7,6 +7,10 @@ class User < ActiveRecord::Base
 
   class << self
 
+    def authenticate(access_token)
+      find_by(access_token: access_token)
+    end
+
     def from_omniauth(auth)
       find_or_initialize_by(uid: auth.uid).tap do |user|
         user.uid              = auth.uid
