@@ -59,6 +59,8 @@ RSpec.configure do |config|
 
   config.include FactoryGirl::Syntax::Methods
   config.include OmniAuthHelper
+  config.include JsonHelper,     type: :request
+  config.include RequestsHelper, type: :request
 end
 
 OmniAuth.config.test_mode = true
