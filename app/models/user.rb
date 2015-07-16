@@ -1,7 +1,6 @@
 class User < ActiveRecord::Base
 
   validates :uid, :name, :oauth_token, :oauth_expires_at, presence: true
-
   validates :uid, :access_token, uniqueness: true
 
   after_create :update_access_token!

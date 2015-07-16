@@ -30,6 +30,7 @@ RSpec.describe "Authentication", type: :request do
 
     context "with a returning user" do
       before { user.save! }
+
       it "updates the user record and returns an access token" do
         expect {
           get "/auth/facebook/callback"
