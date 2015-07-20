@@ -5,6 +5,9 @@ class User < ActiveRecord::Base
 
   after_create :update_access_token!
 
+  has_many :memberships
+  has_many :games, through: :memberships
+
   class << self
 
     def authenticate(access_token)
