@@ -8,6 +8,10 @@ class User < ActiveRecord::Base
   has_many :memberships
   has_many :games, through: :memberships
 
+  def serialize
+    { user: { name: name, image_url: image_url } }
+  end
+
   class << self
 
     def authenticate(access_token)

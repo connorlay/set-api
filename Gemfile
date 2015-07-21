@@ -8,11 +8,10 @@ gem 'spring', :group => :development
 gem 'pg'
 gem 'bcrypt', '~> 3.1.7'
 gem 'jbuilder'
-
 gem 'omniauth'
 gem 'omniauth-facebook'
-
-gem 'attr_encrypted'
+gem 'puma'
+gem 'active_model_serializers'
 
 
 group :development, :test do
