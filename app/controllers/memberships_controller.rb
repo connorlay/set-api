@@ -1,9 +1,9 @@
 class MembershipsController < ApplicationController
 
- rescue_from ActiveRecord::RecordNotFound, with: :game_not_found_error
+  rescue_from ActiveRecord::RecordNotFound, with: :game_not_found_error
 
   def create
-    game = Game.find(params[:game_id])
+    game = Game.find(params[:id])
     game << current_user
     render json: game, serializer: GameSerializer
   end

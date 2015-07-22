@@ -17,3 +17,6 @@
 
 # Ignore secrets
 .env
+
+# Ignore rbenv ruby version
+.ruby-version

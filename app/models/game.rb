@@ -6,8 +6,4 @@ class Game < ActiveRecord::Base
     Membership.create user: user, game: self
   end
 
-  def serialize
-    { game: { created_at: created_at, users: users.map(&:serialize) } }
-  end
-
 end

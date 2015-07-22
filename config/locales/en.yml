@@ -2,5 +2,8 @@ en:
   games:
     show:
       failure:    "That games does not exist."
+  users:
+    show:
+      failure:    "That user does not exist."
   errors:
     unauthorized: "Invalid access token."

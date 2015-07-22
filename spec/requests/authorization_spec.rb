@@ -11,7 +11,7 @@ RSpec.describe "Authorizations", type: :request do
 
       it "responds with user data" do
         expect(response).to have_http_status 200
-        expect(json).to eq ({'name' => user.name, 'image' => user.image_url})
+        expect(json['data']['attributes']).to eq ({"name"=>user.name, "image_url"=>user.image_url})
       end
     end
 

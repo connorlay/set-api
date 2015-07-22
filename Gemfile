@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.2.0'
+ruby '2.2.2'
 
 gem 'rails', '4.2.1'
 gem 'rails-api'
@@ -11,7 +11,7 @@ gem 'jbuilder'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'puma'
-gem 'active_model_serializers'
+gem "active_model_serializers", github: "rails-api/active_model_serializers"
 
 
 group :development, :test do
