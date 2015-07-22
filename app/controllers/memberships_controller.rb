@@ -2,7 +2,7 @@ class MembershipsController < ApplicationController
 
   def create
     game = Game.find(params[:id])
-    game << current_user
+    game.add_user(current_user)
     render json: game, serializer: GameSerializer
   end
 
