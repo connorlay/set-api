@@ -1,4 +1,5 @@
 class CreateUsers < ActiveRecord::Migration
+
   def change
     create_table :users do |t|
       t.string   :uid
@@ -13,4 +14,5 @@ class CreateUsers < ActiveRecord::Migration
     add_index :users, :uid, unique: true
     add_index :users, :access_token, unique: true
   end
+
 end
