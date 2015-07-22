@@ -1,9 +1,10 @@
 en:
   games:
     show:
-      failure:    "That games does not exist."
+      failure: "That games does not exist."
   users:
     show:
-      failure:    "That user does not exist."
+      failure: "That user does not exist."
   errors:
-    unauthorized: "Invalid access token."
+    :401:       "Invalid access token."
+    :404:       "Resource does not exist."

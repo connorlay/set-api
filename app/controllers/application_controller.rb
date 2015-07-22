@@ -2,6 +2,8 @@ class ApplicationController < ActionController::API
 
   before_action :authentication_error, unless: :authenticated?
 
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found_error
+
   private
 
   def current_user
@@ -19,7 +21,11 @@ class ApplicationController < ActionController::API
   end
 
   def authentication_error
-    render json: { error: I18n.t('errors.unauthorized') }, status: 401
+    render json: { error: I18n.t('errors.401') }, status: 401
+  end
+
+  def record_not_found_error
+    render json: { error: I18n.t('errors.404') }, status: 404
   end
 
 end

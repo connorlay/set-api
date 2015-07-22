@@ -23,7 +23,7 @@ RSpec.describe "Authorizations", type: :request do
 
       it "responds with an error" do
         expect(response).to have_http_status 401
-        expect(json).to eq ({'error' => I18n.t('errors.unauthorized')})
+        expect(json).to eq ({'error' => I18n.t('errors.401')})
       end
     end
 
@@ -32,7 +32,7 @@ RSpec.describe "Authorizations", type: :request do
 
       it "responds with an error" do
         expect(response).to have_http_status 401
-        expect(json).to eq ({'error' => I18n.t('errors.unauthorized')})
+        expect(json).to eq ({'error' => I18n.t('errors.401')})
       end
     end
   end

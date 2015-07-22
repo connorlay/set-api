@@ -23,7 +23,7 @@ RSpec.describe "Users", type: :request do
 
       it "responds with an error" do
         expect(response).to have_http_status 404
-        expect(json['error']).to eq I18n.t('users.show.failure')
+        expect(json['error']).to eq I18n.t('errors.404')
       end
     end
   end
