@@ -13,7 +13,8 @@ RSpec.describe "Games", type: :request do
 
       it "responds with game data" do
         expect(response).to have_http_status 200
-        expect(json['data']['attributes']).to eq ({'created_at' => game.created_at})
+        expect(json['data']['type']).to eq "games"
+        expect(json['data']['attributes']).to have_key("created_at")
       end
     end
 
@@ -35,7 +36,6 @@ RSpec.describe "Games", type: :request do
     it "reponds with the new game data" do
       expect(response).to have_http_status 200
       expect(json['data']['type']).to eq "games"
-      expect(json['data']['attributes']).to eq ({'created_at' => user.games.first.created_at})
     end
     it "has the user as a player" do
       expect(json['data']['relationships']['users']['data'].first['type']).to eq "users"
