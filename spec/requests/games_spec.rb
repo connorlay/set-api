@@ -39,7 +39,7 @@ RSpec.describe "Games", type: :request do
     end
     it "has the user as a player" do
       expect(json['data']['relationships']['users']['data'].first['type']).to eq "users"
-      expect(json['data']['relationships']['users']['data'].first['id']).to eq user.id.to_s
+      expect(json['data']['relationships']['users']['data'].first['id']).to eq "#{user.id}"
     end
   end
 end
