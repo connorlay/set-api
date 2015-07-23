@@ -13,7 +13,7 @@ module Api::V1
     helper_method :current_user
 
     def authenticated?
-      !current_user.nil?
+      current_user.present?
     end
     helper_method :authenticated?
 
