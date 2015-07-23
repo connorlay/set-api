@@ -4,11 +4,11 @@ RSpec.describe "Memberships", type: :request do
 
   let(:user) { create :user }
 
-  describe "POST /memberships" do
+  describe "POST /v1/memberships" do
 
     context "with a valid game id" do
       let(:game) { create :game }
-      let(:path) { "/memberships" }
+      let(:path) { "/v1/memberships" }
       before { post_with_access_token path, user.access_token, id: game.id }
 
       it "reponds with the game data" do
@@ -23,7 +23,7 @@ RSpec.describe "Memberships", type: :request do
     end
 
     context "with an invalid game id" do
-      let(:path) { "/memberships" }
+      let(:path) { "/v1/memberships" }
       before { post_with_access_token path, user.access_token }
 
       it "responds with an error" do

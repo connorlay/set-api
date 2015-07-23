@@ -4,11 +4,11 @@ RSpec.describe "Games", type: :request do
 
   let(:user) { create :user }
 
-  describe "GET /games/:id" do
+  describe "GET /v1/games/:id" do
 
     context "with a valid game id" do
       let(:game) { create :game }
-      let(:path) { "/games/#{game.id}" }
+      let(:path) { "/v1/games/#{game.id}" }
       before { get_with_access_token path, user.access_token }
 
       it "responds with game data" do
@@ -19,7 +19,7 @@ RSpec.describe "Games", type: :request do
     end
 
     context "with an invalid game id" do
-      let(:path) { "/games/bogus_id" }
+      let(:path) { "/v1/games/bogus_id" }
       before { get_with_access_token path, user.access_token }
 
       it "responds with an error" do
@@ -29,8 +29,8 @@ RSpec.describe "Games", type: :request do
     end
   end
 
-  describe "POST /games" do
-    let(:path) { "/games" }
+  describe "POST /api/v1/games" do
+    let(:path) { "/v1/games" }
     before { post_with_access_token path, user.access_token }
 
     it "reponds with the new game data" do
