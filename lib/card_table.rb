@@ -1,7 +1,7 @@
-class Deck
+class CardTable
 
   extend Forwardable
-  def_delegators :@cards, :pop, :size
+  def_delegators :@cards, :size, :[]
 
   ATTRIBUTES = {
     symbol:  [ :diamond, :sguiggle, :oval ],
@@ -11,7 +11,15 @@ class Deck
   }
 
   def initialize
-    @cards = CardFactory.new(ATTRIBUTES).permutations.shuffle!
+    @cards = CardFactory.new(ATTRIBUTES).permutations
+  end
+
+  def ids
+    (0...size).to_a
+  end
+
+  def cards(ids)
+    ids.try(:map) { |id| @cards[id] }
   end
 
 end

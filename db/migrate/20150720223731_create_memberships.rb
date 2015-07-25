@@ -2,8 +2,9 @@ class CreateMemberships < ActiveRecord::Migration
 
   def change
     create_table :memberships do |t|
-      t.references :user, index: true, foreign_key: true, null: false
-      t.references :game, index: true, foreign_key: true, null: false
+      t.references :user,  index: true, foreign_key: true, null: false
+      t.references :game,  index: true, foreign_key: true, null: false
+      t.integer    :score, default: 0
 
       t.timestamps null: false
     end

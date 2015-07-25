@@ -17,15 +17,18 @@ ActiveRecord::Schema.define(version: 20150720223731) do
   enable_extension "plpgsql"
 
   create_table "games", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "deck",       default: [], null: false, array: true
+    t.integer  "board",      default: [], null: false, array: true
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "memberships", force: :cascade do |t|
-    t.integer  "user_id",    null: false
-    t.integer  "game_id",    null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "user_id",                null: false
+    t.integer  "game_id",                null: false
+    t.integer  "score",      default: 0
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   add_index "memberships", ["game_id"], name: "index_memberships_on_game_id", using: :btree
