@@ -15,6 +15,8 @@ RSpec.describe "Games", type: :request do
         expect(response).to have_http_status 200
         expect(json['data']['type']).to eq "games"
         expect(json['data']['attributes']).to have_key("created_at")
+        expect(json['data']['attributes']['board'].size).to be 12
+        expect(json['data']['attributes']['deck'].size).to be 69
       end
     end
 

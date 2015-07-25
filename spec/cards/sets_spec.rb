@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.describe Card do
 
   describe "#set?" do
+    let(:card1) { Card.new 1, symbol: :diamond, number: :one, color: :red, shading: :solid }
+    let(:card2) { Card.new 2, symbol: :diamond, number: :one, color: :green, shading: :striped }
 
     context "with a valid set" do
-      let(:card1) { Card.new symbol: :diamond, number: :one, color: :red, shading: :solid }
-      let(:card2) { Card.new symbol: :diamond, number: :one, color: :green, shading: :striped }
-      let(:card3) { Card.new symbol: :diamond, number: :one, color: :purple, shading: :open }
+      let(:card3) { Card.new 3, symbol: :diamond, number: :one, color: :purple, shading: :open }
 
       it "returns true" do
         expect(card1.set?(card2, card3)).to be true
@@ -18,9 +18,7 @@ RSpec.describe Card do
     end
 
     context "with an invalid set" do
-      let(:card1) { Card.new symbol: :diamond, number: :one, color: :red, shading: :solid }
-      let(:card2) { Card.new symbol: :diamond, number: :one, color: :green, shading: :striped }
-      let(:card3) { Card.new symbol: :sguiggle, number: :two, color: :purple, shading: :open }
+      let(:card3) { Card.new 3, symbol: :sguiggle, number: :two, color: :purple, shading: :open }
 
       it "returns false" do
         expect(card1.set?(card2, card3)).to be false

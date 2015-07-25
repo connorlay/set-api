@@ -7,8 +7,6 @@ RSpec.describe Game, type: :model do
   context "validations" do
 
     it { is_expected.to have_many :users }
-    it { is_expected.to validate_presence_of :deck }
-    it { is_expected.to validate_presence_of :board }
 
     it "starts with 12 cards on the board" do
       expect(subject.board.size).to eq 12
@@ -28,6 +26,19 @@ RSpec.describe Game, type: :model do
   describe "#deck" do
     it "returns an array of cards" do
       expect(subject.deck.all? { |card| card.instance_of? Card } ).to be true
+    end
+  end
+
+  describe "#add_user" do
+    let(:user) { create :user }
+
+    it "add the user as a member" do
+      expect {
+        subject.add_user user
+      }.to change {
+        Membership.count
+      }.by 1
+      expect(subject.users).to include user
     end
   end
 

@@ -1,6 +1,9 @@
 class Card
 
-  def initialize(attributes)
+  attr_reader :id
+
+  def initialize(id, attributes)
+    @id = id
     @attributes = attributes
   end
 
