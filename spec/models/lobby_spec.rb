@@ -7,6 +7,7 @@ RSpec.describe Lobby, type: :model do
   context "validations" do
 
     it { is_expected.to have_many :users }
+    it { is_expected.to have_one  :game }
   end
 
   describe "#add_user" do

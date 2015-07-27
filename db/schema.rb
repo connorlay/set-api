@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150720223731) do
+ActiveRecord::Schema.define(version: 20150727171139) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "games", force: :cascade do |t|
+    t.integer  "deck",       default: [], null: false, array: true
+    t.integer  "board",      default: [], null: false, array: true
+    t.integer  "lobby_id",                null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "games", ["lobby_id"], name: "index_games_on_lobby_id", using: :btree
 
   create_table "lobbies", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -22,11 +32,10 @@ ActiveRecord::Schema.define(version: 20150720223731) do
   end
 
   create_table "memberships", force: :cascade do |t|
-    t.integer  "user_id",                null: false
-    t.integer  "lobby_id",               null: false
-    t.integer  "score",      default: 0
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.integer  "user_id",    null: false
+    t.integer  "lobby_id",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "memberships", ["lobby_id"], name: "index_memberships_on_lobby_id", using: :btree
@@ -47,6 +56,7 @@ ActiveRecord::Schema.define(version: 20150720223731) do
   add_index "users", ["access_token"], name: "index_users_on_access_token", unique: true, using: :btree
   add_index "users", ["uid"], name: "index_users_on_uid", unique: true, using: :btree
 
+  add_foreign_key "games", "lobbies"
   add_foreign_key "memberships", "lobbies"
   add_foreign_key "memberships", "users"
 end
