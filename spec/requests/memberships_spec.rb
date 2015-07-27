@@ -6,15 +6,15 @@ RSpec.describe "Memberships", type: :request do
 
   describe "POST /v1/memberships" do
 
-    context "with a valid game id" do
-      let(:game) { create :game }
+    context "with a valid lobby id" do
+      let(:lobby) { create :lobby }
       let(:path) { "/v1/memberships" }
-      before { post_with_access_token path, user.access_token, id: game.id }
+      before { post_with_access_token path, user.access_token, id: lobby.id }
 
-      it "reponds with the game data" do
+      it "reponds with the lobby data" do
         expect(response).to have_http_status 200
-        expect(json['data']['type']).to eq "games"
-        expect(json['data']['id']).to eq "#{game.id}"
+        expect(json['data']['type']).to eq "lobbies"
+        expect(json['data']['id']).to eq "#{lobby.id}"
       end
       it "has the user as a player" do
         expect(json['data']['relationships']['users']['data'].first['type']).to eq "users"
@@ -22,7 +22,7 @@ RSpec.describe "Memberships", type: :request do
       end
     end
 
-    context "with an invalid game id" do
+    context "with an invalid lobby id" do
       let(:path) { "/v1/memberships" }
       before { post_with_access_token path, user.access_token }
 

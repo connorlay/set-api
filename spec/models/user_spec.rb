@@ -16,7 +16,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_db_index :uid }
     it { is_expected.to have_db_index :access_token }
 
-    it { is_expected.to have_many :games }
+    it { is_expected.to have_many :lobbies }
   end
 
   describe "#from_omniauth" do

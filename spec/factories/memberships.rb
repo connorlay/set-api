@@ -2,7 +2,7 @@ FactoryGirl.define do
 
   factory :membership do
     user
-    game
+    lobby
   end
 
 end
