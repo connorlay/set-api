@@ -15,13 +15,4 @@ class Card
     end
   end
 
-  def set?(*cards)
-    cards << self
-    @attributes.keys.all? do |attribute|
-      values = cards.map { |card| card.send(attribute) }
-      return false unless values.uniq.size == 1 || values.uniq.size == values.size
-    end
-    return true
-  end
-
 end

@@ -2,8 +2,8 @@ FactoryGirl.define do
 
   factory :game do
     lobby
-    deck
-    board
+    deck  []
+    board []
   end
 
 end
