@@ -7,7 +7,9 @@ Rails.application.routes.draw do
     namespace :v1 do
 
       resources :users, only: [ :show ]
-      resources :lobbies, only: [ :create, :show ]
+      resources :lobbies, only: [ :create, :show ] do
+        resources :games, only: [ :show, :update, :create ]
+      end
       resources :memberships, only: [ :create ]
 
     end

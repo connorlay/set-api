@@ -20,7 +20,7 @@ class Game < ActiveRecord::Base
   end
 
   def setup_game
-    self.deck = dealer.new_deck.map(&:id)
+    self.deck  = dealer.new_deck.map(&:id)
     self.board = deck.pop(12)
   end
 

@@ -29,7 +29,7 @@ RSpec.describe "lobbies", type: :request do
     end
   end
 
-  describe "POST /api/v1/lobbies" do
+  describe "POST /v1/lobbies" do
     let(:path) { "/v1/lobbies" }
     before { post_with_access_token path, user.access_token }
 

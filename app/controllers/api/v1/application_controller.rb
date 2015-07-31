@@ -3,7 +3,7 @@ module Api::V1
 
     before_action :authentication_error, unless: :authenticated?
 
-    rescue_from ActiveRecord::RecordNotFound, with: :record_not_found_error
+    rescue_from ActiveRecord::RecordNotFound, with: :existence_error
 
     private
 
@@ -25,8 +25,12 @@ module Api::V1
       render json: { error: I18n.t('errors.401') }, status: 401
     end
 
-    def record_not_found_error
+    def existence_error
       render json: { error: I18n.t('errors.404') }, status: 404
+    end
+
+    def conflict_error
+      render json: { error: I18n.t('errors.409') }, status: 409
     end
 
   end

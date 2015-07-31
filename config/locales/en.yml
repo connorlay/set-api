@@ -1,4 +1,5 @@
 en:
   errors:
-    :401:       "Invalid access token."
-    :404:       "Resource does not exist."
+    :401: "Invalid access token."
+    :404: "Resource does not exist."
+    :409: "Resource conflict."

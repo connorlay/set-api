@@ -8,8 +8,13 @@ module Api::V1
     end
 
     def show
-      lobby = Lobby.find(params[:id])
       render json: lobby, serializer: LobbySerializer
+    end
+
+    private
+
+    def lobby
+      @lobby ||= Lobby.find(params[:id])
     end
 
   end
