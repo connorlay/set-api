@@ -13,6 +13,14 @@ class Game < ActiveRecord::Base
     shading: [ :solid, :striped, :open ]
   }
 
+  def deck
+    dealer.get_cards(read_attribute(:deck))
+  end
+  
+  def board
+    dealer.get_cards(read_attribute(:board))
+  end
+
   private
 
   def dealer
@@ -21,7 +29,7 @@ class Game < ActiveRecord::Base
 
   def setup_game
     self.deck  = dealer.new_deck.map(&:id)
-    self.board = deck.pop(12)
+    self.board = read_attribute(:deck).pop(12)
   end
 
 end

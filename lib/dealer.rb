@@ -10,6 +10,14 @@ class Dealer
     cards.shuffle
   end
 
+  def get_card(id)
+    cards[id]
+  end
+
+  def get_cards(ids)
+    ids.map { |id| get_card(id) }
+  end
+
   private
 
   def permutator
