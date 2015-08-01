@@ -6,13 +6,6 @@ class Game < ActiveRecord::Base
 
   before_create :setup_game
 
-  CARD_ATTRIBUTES = {
-    symbol:  [ :diamond, :sguiggle, :oval ],
-    number:  [ :one, :two, :three ],
-    color:   [ :red, :green, :purple ],
-    shading: [ :solid, :striped, :open ]
-  }
-
   def deck
     dealer.get_cards(read_attribute(:deck))
   end
@@ -24,7 +17,7 @@ class Game < ActiveRecord::Base
   private
 
   def dealer
-    @dealer ||= Dealer.new(CARD_ATTRIBUTES)
+    @dealer ||= Dealer.new
   end
 
   def setup_game
