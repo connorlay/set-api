@@ -10,4 +10,9 @@ module RequestsHelper
     post path, params, headers
   end
 
+  def put_with_access_token(path, token, params={}, headers={})
+    headers.merge!('Authorization' => token)
+    put path, params, headers
+  end
+
 end

@@ -9,7 +9,6 @@ class Games::Creator
   def setup(game)
     game.deck = dealer.new_deck.map(&:id).shuffle
     12.times { game.board << game.deck.pop }
-    game.save
   end
 
   def dealer

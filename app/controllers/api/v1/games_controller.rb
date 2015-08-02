@@ -14,9 +14,12 @@ class Api::V1::GamesController < Api::V1::ApplicationController
   end
 
   def update
-    Games::MoveMaker.new(game).make_move(cards: params[:cards],
-                                         user:  current_user)
-    render json: game, serializer: GameSerializer
+    move_maker = Games::MoveMaker.new(game)
+    if move_maker.make_move(cards: params[:cards].map(&:to_i), user:  current_user)
+      render json: game, serializer: GameSerializer
+    else
+      conflict_error
+    end
   end
 
   private

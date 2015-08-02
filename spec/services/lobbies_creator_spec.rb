@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Lobbies::Creator  do
+RSpec.describe Lobbies::Creator do
 
   let(:creator) { Lobbies::Creator.new }
 

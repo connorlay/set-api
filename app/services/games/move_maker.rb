@@ -10,9 +10,11 @@ class Games::MoveMaker
     if dealer.valid_set?(cards)
       remove_cards_from_board(cards)
       add_cards_to_board
-      score_updater.decrement_score(user)
+      score_updater.increment_score(user)
+      return true
     else
       score_updater.decrement_score(user)
+      return false
     end
   end
 
@@ -23,7 +25,7 @@ class Games::MoveMaker
   end
 
   def add_cards_to_board
-    3.times { game.board << game.deck.pop }
+    3.times { game.board << game.deck.shift }
   end
 
   def dealer
