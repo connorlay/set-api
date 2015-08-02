@@ -11,10 +11,8 @@ class Games::MoveMaker
       remove_cards_from_board(cards)
       add_cards_to_board
       score_updater.increment_score(user)
-      return true
     else
       score_updater.decrement_score(user)
-      return false
     end
   end
 

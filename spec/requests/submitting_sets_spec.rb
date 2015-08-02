@@ -23,7 +23,11 @@ RSpec.describe "SubmittingSets", type: :request do
     context "with an invalid set" do
       before { put_with_access_token path, user.access_token, cards: [0, 1, 5] }
 
-      it_behaves_like "a conflict error"
+      it_behaves_like "a successfull response"
+      it_behaves_like "a response with game data"
+      it "has the same cards on the board" do
+        expect(json['data']['attributes']['board'].map { |card| card['id'] }).to eq (0...12).to_a
+      end
     end
   end
 
