@@ -13,24 +13,15 @@ RSpec.describe "Games", type: :request do
       let(:path)  { "/v1/lobbies/#{lobby.id}/games/#{game.id}" }
       before { get_with_access_token path, user.access_token }
 
-      it "responds with game data" do
-        expect(response).to have_http_status 200
-        expect(json['data']['type']).to eq "games"
-      end
-      it "responds with card data" do
-        expect(json['data']['attributes']).to have_key("board")
-        expect(json['data']['attributes']).to have_key("deck")
-      end
+      it_behaves_like "a successfull response"
+      it_behaves_like "a response with game data"
     end
 
     context "with an invalid game id" do
       let(:path) { "/v1/lobbies/#{lobby.id}/games/bogus_id" }
       before { get_with_access_token path, user.access_token }
 
-      it "responds with an error" do
-        expect(response).to have_http_status 404
-        expect(json['error']).to eq I18n.t('errors.404')
-      end
+      it_behaves_like "an existance error"
     end
   end
 
@@ -40,22 +31,15 @@ RSpec.describe "Games", type: :request do
     context "without an existing game" do
       before { post_with_access_token path, user.access_token }
 
-      it "responds with the new game data" do
-        expect(response).to have_http_status 200
-        expect(json['data']['type']).to eq "games"
-        expect(json['data']['attributes']).to have_key("board")
-        expect(json['data']['attributes']).to have_key("deck")
-      end
+      it_behaves_like "a successfull response"
+      it_behaves_like "a response with game data"
     end
 
     context "with an existing game" do
       let!(:game) { create :game, lobby: lobby }
       before { post_with_access_token path, user.access_token }
 
-      it "responds with an error" do
-        expect(response).to have_http_status 409
-        expect(json['error']).to eq I18n.t('errors.409')
-      end
+      it_behaves_like "a conflict error"
     end
   end
 

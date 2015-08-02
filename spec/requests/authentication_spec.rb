@@ -6,7 +6,7 @@ RSpec.describe "Authentication", type: :request do
     before  { get "/auth/facebook" }
     subject { response }
 
-    it { is_expected.to have_http_status 302 }
+    it_behaves_like "a redirection"
     it { is_expected.to redirect_to "/auth/facebook/callback" }
   end
 

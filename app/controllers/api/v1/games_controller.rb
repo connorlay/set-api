@@ -15,7 +15,7 @@ class Api::V1::GamesController < Api::V1::ApplicationController
 
   def update
     Games::MoveMaker.new(game).make_move(cards: params[:cards],
-                                                   user:  current_user)
+                                         user:  current_user)
     render json: game, serializer: GameSerializer
   end
 
