@@ -8,7 +8,7 @@ class Dealer
   }
 
   def new_deck
-    cards.shuffle
+    cards
   end
 
   def get_card(id)
