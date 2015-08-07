@@ -7,8 +7,8 @@ RSpec.describe "Memberships", type: :request do
   describe "POST /v1/memberships" do
 
     context "with a valid lobby id" do
-      let(:lobby) { create :lobby }
-      let(:path) { "/v1/memberships" }
+      let(:lobby) { Lobbies::Creator.new.create_new_lobby(user) }
+      let(:path)  { "/v1/memberships" }
       before { post_with_access_token path, user.access_token, id: lobby.id }
 
       it_behaves_like "a successfull response"

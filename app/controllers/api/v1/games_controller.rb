@@ -13,12 +13,6 @@ class Api::V1::GamesController < Api::V1::ApplicationController
     render json: game, serializer: GameSerializer
   end
 
-  def update
-    Games::MoveMaker.new(game).make_move(cards: params[:cards].map(&:to_i),
-                                         user:  current_user)
-    render json: game, serializer: GameSerializer
-  end
-
   private
 
   def game
@@ -31,6 +25,10 @@ class Api::V1::GamesController < Api::V1::ApplicationController
 
   def lobby
     @lobby ||= Lobby.find(params[:lobby_id])
+  end
+
+  def move_params
+    { cards: params[:cards].map(&:to_i), user: current_user }
   end
 
 end

@@ -1,17 +1,17 @@
 require 'rails_helper'
 
-RSpec.describe "SubmittingSets", type: :request do
+RSpec.describe "Sets", type: :request do
 
   let(:user)  { create :user }
   let(:lobby) { Lobbies::Creator.new.create_new_lobby(user) }
   let(:game)  { Games::Creator.new.create_new_game(lobby: lobby) }
 
-  describe "PUT /v1/lobbies/:id/games/:id" do
-    let(:path) { "/v1/lobbies/#{lobby.id}/games/#{game.id}" }
+  describe "POST /v1/lobbies/:id/games/:id/sets" do
+    let(:path) { "/v1/lobbies/#{lobby.id}/games/#{game.id}/sets" }
     before { game.update_attributes(board: (0...12).to_a, deck: (12...81).to_a) }
 
     context "with a valid set" do
-      before { put_with_access_token path, user.access_token, cards: [0, 1, 2] }
+      before { post_with_access_token path, user.access_token, cards: [0, 1, 2] }
 
       it_behaves_like "a successfull response"
       it_behaves_like "a response with game data"
@@ -21,7 +21,7 @@ RSpec.describe "SubmittingSets", type: :request do
     end
 
     context "with an invalid set" do
-      before { put_with_access_token path, user.access_token, cards: [0, 1, 5] }
+      before { post_with_access_token path, user.access_token, cards: [0, 1, 5] }
 
       it_behaves_like "a successfull response"
       it_behaves_like "a response with game data"
@@ -30,6 +30,5 @@ RSpec.describe "SubmittingSets", type: :request do
       end
     end
   end
-
 
 end

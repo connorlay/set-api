@@ -17,7 +17,7 @@ class Lobbies::ScoreUpdater
   private
 
   def membership(user)
-    Membership.find_by(lobby: lobby, user: user)
+    lobby.memberships.find_by(user: user)
   end
 
 end

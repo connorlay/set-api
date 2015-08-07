@@ -1,4 +1,4 @@
-class Games::MoveMaker
+class Sets::Creator
 
   attr_reader :game
 
