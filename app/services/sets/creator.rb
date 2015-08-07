@@ -6,7 +6,7 @@ class Sets::Creator
     @game = game
   end
 
-  def make_move(cards:, user:)
+  def create_new_set(cards:, user:)
     if dealer.valid_set?(cards)
       remove_cards_from_board(cards)
       add_cards_to_board

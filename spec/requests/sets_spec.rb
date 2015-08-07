@@ -15,6 +15,7 @@ RSpec.describe "Sets", type: :request do
 
       it_behaves_like "a successfull response"
       it_behaves_like "a response with game data"
+
       it "has new cards on the board" do
         expect(json['data']['attributes']['board'].map { |card| card['id'] }).to eq (3...15).to_a
       end
@@ -25,6 +26,7 @@ RSpec.describe "Sets", type: :request do
 
       it_behaves_like "a successfull response"
       it_behaves_like "a response with game data"
+
       it "has the same cards on the board" do
         expect(json['data']['attributes']['board'].map { |card| card['id'] }).to eq (0...12).to_a
       end

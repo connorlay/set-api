@@ -7,7 +7,7 @@ class Lobbies::UserManager
   end
 
   def add_user(user)
-    Membership.create lobby: lobby, user: user
+    lobby.memberships.create(user: user)
   end
 
 end

@@ -3,6 +3,7 @@ class Api::V1::GamesController < Api::V1::ApplicationController
   before_action :conflict_error, if: -> { lobby.game.present? },
                                  only: [ :create ]
   before_action :check_user_membership, only: [ :show ]
+  before_action :check_existing_game,   only: [ :create ]
 
   def create
     game = Games::Creator.new.create_new_game(lobby: lobby)
@@ -27,8 +28,8 @@ class Api::V1::GamesController < Api::V1::ApplicationController
     @lobby ||= Lobby.find(params[:lobby_id])
   end
 
-  def move_params
-    { cards: params[:cards].map(&:to_i), user: current_user }
+  def check_existing_game
+    conflict_error if lobby.game.present?
   end
 
 end

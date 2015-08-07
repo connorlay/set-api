@@ -3,7 +3,7 @@ class Api::V1::SetsController < Api::V1::ApplicationController
   before_action :check_user_membership
 
   def create
-    Sets::Creator.new(game).make_move(set_params)
+    Sets::Creator.new(game).create_new_set(set_params)
     render json: game, serializer: GameSerializer
   end
 
