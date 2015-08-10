@@ -31,7 +31,8 @@ RSpec.describe "lobbies", type: :request do
     it_behaves_like "a response with lobby data"
 
     it "has the user as a player" do
-      expect(json['data']['relationships']['users']['data'].first['id']).to eq user.id
+      expect(json['data']['relationships']['users']['data'].first['id']).to    eq user.id
+      expect(json['data']['relationships']['users']['data'].first['score']).to eq user.score_for(Lobby.first)
     end
   end
 end
