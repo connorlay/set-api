@@ -25,7 +25,6 @@ RSpec.describe "Authentication", type: :request do
         expect(response).to have_http_status 200
         expect(json["access_token"]).to eq User.find_by(uid: user.uid).access_token
       end
-
     end
 
     context "with a returning user" do
