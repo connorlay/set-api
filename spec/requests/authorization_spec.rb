@@ -16,19 +16,13 @@ RSpec.describe "Authorizations", type: :request do
     context "with an invalid access token" do
       before { get_with_access_token path, 'bogus_token' }
 
-      it "responds with an error" do
-        expect(response).to have_http_status 401
-        expect(json).to eq ({'error' => I18n.t('errors.401')})
-      end
+      it_behaves_like "an authorization error"
     end
 
     context "without an access token" do
       before { get_with_access_token path, nil }
 
-      it "responds with an error" do
-        expect(response).to have_http_status 401
-        expect(json).to eq ({'error' => I18n.t('errors.401')})
-      end
+      it_behaves_like "an authorization error"
     end
   end
 end

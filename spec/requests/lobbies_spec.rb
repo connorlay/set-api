@@ -7,12 +7,9 @@ RSpec.describe "lobbies", type: :request do
   describe "GET /v1/lobbies/:id" do
 
     context "with a valid lobby id" do
-      let(:lobby) { create :lobby }
-      let(:path) { "/v1/lobbies/#{lobby.id}" }
-      before do
-        create :membership, user: user, lobby: lobby
-        get_with_access_token path, user.access_token
-      end
+      let(:lobby) { Lobbies::Creator.new.create_new_lobby(user) }
+      let(:path)  { "/v1/lobbies/#{lobby.id}" }
+      before { get_with_access_token path, user.access_token }
 
       it_behaves_like "a successfull response"
       it_behaves_like "a response with lobby data"
@@ -32,7 +29,7 @@ RSpec.describe "lobbies", type: :request do
 
     it_behaves_like "a successfull response"
     it_behaves_like "a response with lobby data"
-    
+
     it "has the user as a player" do
       expect(json['data']['relationships']['users']['data'].first['type']).to eq "users"
       expect(json['data']['relationships']['users']['data'].first['id']).to eq "#{user.id}"
