@@ -5,7 +5,7 @@ RSpec.describe Lobbies::Creator do
   let(:creator) { Lobbies::Creator.new }
 
   describe "#create_new_lobby" do
-    let(:user)  { create :user }
+    let(:user)  { Users::Creator.new.create_new_user(attributes_for :user) }
     let(:lobby) { creator.create_new_lobby(user) }
 
     it "returns a new lobby" do

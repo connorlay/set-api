@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "Authorizations", type: :request do
 
   describe "GET /v1/users/:id" do
-    let(:user) { create :user }
+    let(:user) { Users::Creator.new.create_new_user(attributes_for :user) }
     let(:path) { "/v1/users/#{user.id}" }
 
     context "with a valid access token" do

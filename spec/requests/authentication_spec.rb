@@ -38,7 +38,7 @@ RSpec.describe "Authentication", type: :request do
           User.count
         }
         expect(response).to have_http_status 200
-        expect(json["access_token"]).to eq user.access_token
+        expect(json["access_token"]).to eq user.reload.access_token
       end
     end
 

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "lobbies", type: :request do
 
-  let(:user) { create :user }
+  let(:user) { Users::Creator.new.create_new_user(attributes_for :user) }
 
   describe "GET /v1/lobbies/:id" do
 

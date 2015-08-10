@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Memberships", type: :request do
 
-  let(:user) { create :user }
+  let(:user) { Users::Creator.new.create_new_user(attributes_for :user) }
 
   describe "POST /v1/memberships" do
 
