@@ -10,6 +10,7 @@ class Sets::Creator
     if dealer.valid_set?(cards)
       remove_cards_from_board(cards)
       add_cards_to_board
+      game.save!
       score_updater.increment_score(user)
     else
       score_updater.decrement_score(user)
@@ -20,12 +21,10 @@ class Sets::Creator
 
   def remove_cards_from_board(cards)
     cards.each { |card| game.board.delete(card) }
-    game.save!
   end
 
   def add_cards_to_board
     3.times { game.board << game.deck.shift }
-    game.save!
   end
 
   def dealer
