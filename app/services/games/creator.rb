@@ -1,7 +1,13 @@
 class Games::Creator
 
-  def create_new_game(params)
-    Game.create(params).tap { |game| setup(game) }
+  attr_reader :lobby
+
+  def initialize(lobby)
+    @lobby = lobby
+  end
+
+  def create_new_game
+    Game.create(lobby: lobby).tap { |game| setup(game) }
   end
 
   private

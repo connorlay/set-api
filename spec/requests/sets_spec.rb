@@ -4,7 +4,7 @@ RSpec.describe "Sets", type: :request do
 
   let(:user)  { create :user }
   let(:lobby) { Lobbies::Creator.new.create_new_lobby(user) }
-  let(:game)  { Games::Creator.new.create_new_game(lobby: lobby) }
+  let(:game)  { Games::Creator.new(lobby).create_new_game }
 
   describe "POST /v1/lobbies/:id/games/:id/sets" do
     let(:path) { "/v1/lobbies/#{lobby.id}/games/#{game.id}/sets" }

@@ -1,11 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe Games::Creator  do
+RSpec.describe Games::Creator do
 
-  let(:creator) { Games::Creator.new }
+  let(:lobby)   { create(:lobby) }
+  let(:creator) { Games::Creator.new(lobby) }
 
   describe "#create_new_game" do
-    let(:game) { creator.create_new_game(lobby: create(:lobby)) }
+    let(:game) { creator.create_new_game }
 
     it "returns a new game" do
       expect(game).to be_an_instance_of Game

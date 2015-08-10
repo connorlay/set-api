@@ -6,7 +6,7 @@ class Api::V1::GamesController < Api::V1::ApplicationController
   before_action :check_existing_game,   only: [ :create ]
 
   def create
-    game = Games::Creator.new.create_new_game(lobby: lobby)
+    game = Games::Creator.new(lobby).create_new_game
     render json: game, serializer: GameSerializer
   end
 

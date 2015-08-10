@@ -8,6 +8,10 @@ class User < ActiveRecord::Base
   has_many :memberships
   has_many :lobbies, through: :memberships
 
+  def score_for(lobby)
+    memberships.find_by(lobby: lobby).try(:score)
+  end
+
   class << self
 
     def authenticate(access_token)
