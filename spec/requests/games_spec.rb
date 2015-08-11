@@ -20,12 +20,6 @@ RSpec.describe "Games", type: :request do
       it "responds with card data" do
         expect(json['data']['attributes']).to have_key("board")
         expect(json['data']['attributes']).to have_key("deck")
-        expect(json['data']['attributes']['board'].all? {
-          |card| card['attributes'].keys == [ "symbol", "number", "color", "shading" ]
-        }).to be true
-        expect(json['data']['attributes']['deck'].all? {
-          |card| card['attributes'].keys == [ "symbol", "number", "color", "shading" ]
-        }).to be true
       end
     end
 
