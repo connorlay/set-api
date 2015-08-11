@@ -1,6 +1,6 @@
 class LobbySerializer < ActiveModel::Serializer
 
-  attributes :id, :created_at
+  attributes :id
 
   has_many :users
 
