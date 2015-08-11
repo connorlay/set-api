@@ -16,7 +16,7 @@ class Game < ActiveRecord::Base
   def deck
     dealer.get_cards(read_attribute(:deck))
   end
-  
+
   def board
     dealer.get_cards(read_attribute(:board))
   end

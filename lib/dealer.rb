@@ -11,7 +11,7 @@ class Dealer
   end
 
   def get_card(id)
-    cards[id]
+    cards.detect { |card| card.id == id }
   end
 
   def get_cards(ids)
