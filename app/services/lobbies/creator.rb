@@ -1,6 +1,6 @@
 class Lobbies::Creator
 
-  def create_new_lobby(user)
+  def create_with_user(user)
     Lobby.create.tap { |lobby| add_user(lobby, user) }
   end
 

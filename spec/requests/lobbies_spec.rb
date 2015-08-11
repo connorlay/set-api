@@ -7,7 +7,7 @@ RSpec.describe "lobbies", type: :request do
   describe "GET /v1/lobbies/:id" do
 
     context "with a valid lobby id" do
-      let(:lobby) { Lobbies::Creator.new.create_new_lobby(user) }
+      let(:lobby) { Lobbies::Creator.new.create_with_user(user) }
       let(:path)  { "/v1/lobbies/#{lobby.id}" }
       before { get_with_access_token path, user.access_token }
 

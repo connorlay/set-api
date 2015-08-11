@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe LobbySerializer, type: :serializer do
 
   let(:user)          { Users::Creator.new.create_new_user(attributes_for :user) }
-  let(:lobby)         { Lobbies::Creator.new.create_new_lobby(user) }
+  let(:lobby)         { Lobbies::Creator.new.create_with_user(user) }
   let(:serializer)    { LobbySerializer.new(lobby) }
   let(:serialization) { ActiveModel::Serializer::Adapter.create(serializer) }
   let(:json)          { JSON.parse(serialization.to_json)['data'] }

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Lobbies::ScoreUpdater do
 
   let(:user)  { Users::Creator.new.create_new_user(attributes_for :user) }
-  let(:lobby) { Lobbies::Creator.new.create_new_lobby(user) }
+  let(:lobby) { Lobbies::Creator.new.create_with_user(user) }
   let(:score_updater) { Lobbies::ScoreUpdater.new(lobby) }
 
   describe "#increment_score" do
