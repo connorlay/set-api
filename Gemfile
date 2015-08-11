@@ -17,9 +17,13 @@ gem "active_model_serializers", github: "rails-api/active_model_serializers"
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'factory_girl_rails'
-  gem 'pry'
   gem 'shoulda-matchers'
   gem 'dotenv-rails'
+  gem 'pry'
+end
+
+group :development do
+  gem 'pry-rails'
 end
 
 group :test do
