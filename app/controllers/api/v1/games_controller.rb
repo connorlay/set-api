@@ -18,10 +18,6 @@ class Api::V1::GamesController < Api::V1::ApplicationController
     @game ||= Game.find(params[:id])
   end
 
-  def check_user_membership
-    authentication_error unless lobby.has_user?(current_user)
-  end
-
   def lobby
     @lobby ||= Lobby.find(params[:lobby_id])
   end
