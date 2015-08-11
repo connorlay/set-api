@@ -1,7 +1,5 @@
 class Api::V1::GamesController < Api::V1::ApplicationController
 
-  before_action :conflict_error, if: -> { lobby.game.present? },
-                                 only: [ :create ]
   before_action :check_user_membership, only: [ :show ]
   before_action :check_existing_game,   only: [ :create ]
 
