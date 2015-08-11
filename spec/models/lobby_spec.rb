@@ -4,11 +4,8 @@ RSpec.describe Lobby, type: :model do
 
   subject { create :lobby }
 
-  context "validations" do
-
-    it { is_expected.to have_many :users }
-    it { is_expected.to have_one  :game }
-  end
+  it { is_expected.to have_many :users }
+  it { is_expected.to have_one  :game }
 
   describe "#add_user" do
     let(:user) { create :user }
