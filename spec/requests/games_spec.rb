@@ -4,6 +4,7 @@ RSpec.describe "Games", type: :request do
 
   let(:user)  { create :user }
   let(:lobby) { create :lobby }
+  before { create :membership, lobby: lobby, user: user }
 
   describe "GET /v1/lobbies/:id/games/:id" do
 

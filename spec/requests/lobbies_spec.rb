@@ -9,7 +9,10 @@ RSpec.describe "lobbies", type: :request do
     context "with a valid lobby id" do
       let(:lobby) { create :lobby }
       let(:path) { "/v1/lobbies/#{lobby.id}" }
-      before { get_with_access_token path, user.access_token }
+      before do
+        create :membership, user: user, lobby: lobby
+        get_with_access_token path, user.access_token
+      end
 
       it "responds with lobby data" do
         expect(response).to have_http_status 200

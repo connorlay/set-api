@@ -3,6 +3,7 @@ module Api::V1
 
     before_action :conflict_error, if: -> { lobby.game.present? },
                                    only: [ :create ]
+    before_action :check_user_membership, only: [ :show ]
 
     def create
       render json: lobby.create_game, serializer: GameSerializer
@@ -20,6 +21,10 @@ module Api::V1
 
     def lobby
       @lobby ||= Lobby.find(params[:lobby_id])
+    end
+
+    def check_user_membership
+      authentication_error unless lobby.has_user?(current_user)
     end
 
   end

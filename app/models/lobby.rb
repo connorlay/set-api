@@ -8,4 +8,8 @@ class Lobby < ActiveRecord::Base
     memberships.create user: user
   end
 
+  def has_user?(user)
+    users.include? user
+  end
+
 end
