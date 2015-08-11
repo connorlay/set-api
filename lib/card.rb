@@ -2,7 +2,8 @@ class Card
 
   extend Forwardable
 
-  attr_reader  :id, :attributes
+  attr_reader :id, :attributes
+
   def_delegator :@attributes, :[]
 
   def initialize(id, attributes)

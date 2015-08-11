@@ -7,25 +7,17 @@ RSpec.describe GameSerializer, type: :serializer do
   let(:serialization) { ActiveModel::Serializer::Adapter.create(serializer) }
   let(:json)          { JSON.parse(serialization.to_json)['data'] }
 
-  let(:dealer) { Dealer.new(Game::CARD_ATTRIBUTES) }
+  let(:dealer) { Dealer.new }
 
   it "returns a serialized game" do
     expect(json['type']).to eq 'games'
     expect(json['id']).to   eq game.id.to_s
   end
 
-  it "returns the deck as a list of card attributes" do
-    expect(json['attributes']['deck'].all? do |card|
-      card['attributes'].keys.all? do |key|
-        dealer.get_card(card['id']).send(key) == card['attributes'][key].to_sym
-      end
-    end).to be true
-  end
-
   it "returns the board as a list of card attributes" do
     expect(json['attributes']['board'].all? do |card|
       card['attributes'].keys.all? do |key|
-        dealer.get_card(card['id']).send(key) == card['attributes'][key].to_sym
+        dealer.get_card(card['id'])[key.to_sym] == card['attributes'][key].to_sym
       end
     end).to be true
   end
