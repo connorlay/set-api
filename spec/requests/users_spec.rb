@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Users", type: :request do
 
-  let(:user) { Users::Creator.new.create_new_user(attributes_for :user) }
+  let(:user) { create :user }
 
   describe "GET /v1/users/:id" do
     context "with a valid user id" do

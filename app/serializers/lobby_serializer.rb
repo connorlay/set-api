@@ -6,7 +6,7 @@ class LobbySerializer < ActiveModel::Serializer
 
   def users
     object.users.map do |user|
-      UserSerializer.new(user).attributes.merge(score: user.score_for(object))
+      UserSerializer.new(user).attributes.merge(score: object.score_for(user))
     end
   end
 

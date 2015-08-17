@@ -1,38 +1,29 @@
 class Sets::Creator
 
-  attr_reader :game
+  attr_reader :lobby
 
-  def initialize(game)
-    @game = game
+  def initialize(args)
+    @lobby = args[:lobby]
   end
 
   def create_new_set(cards:, user:)
     if dealer.valid_set?(cards)
-      remove_cards_from_board(cards)
-      add_cards_to_board
-      game.save!
-      score_updater.increment_score(user)
+      game.remove_from_board(cards)
+      game.deck_to_board(3)
+      lobby.increment_score_for(user)
     else
-      score_updater.decrement_score(user)
+      lobby.decrement_score_for(user)
     end
   end
 
   private
 
-  def remove_cards_from_board(cards)
-    cards.each { |card| game.board.delete(card) }
-  end
-
-  def add_cards_to_board
-    3.times { game.board << game.deck.shift }
-  end
-
   def dealer
     @dealer ||= Dealer.new
   end
 
-  def score_updater
-    @score_updater ||= Lobbies::ScoreUpdater.new(game.lobby)
+  def game
+    @game ||= lobby.game
   end
 
 end

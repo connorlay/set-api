@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe UserSerializer, type: :serializer do
 
-  let(:user)          { Users::Creator.new.create_new_user(attributes_for :user) }
+  let(:user)          { create :user }
   let(:serializer)    { UserSerializer.new(user) }
   let(:serialization) { ActiveModel::Serializer::Adapter.create(serializer) }
   let(:json)          { JSON.parse(serialization.to_json)['data'] }

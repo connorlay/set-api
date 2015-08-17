@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Games", type: :request do
 
-  let(:user)  { Users::Creator.new.create_new_user(attributes_for :user) }
+  let(:user)  { create :user }
   let(:lobby) { create :lobby }
   before { create :membership, lobby: lobby, user: user }
 

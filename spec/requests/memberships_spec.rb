@@ -2,14 +2,17 @@ require 'rails_helper'
 
 RSpec.describe "Memberships", type: :request do
 
-  let(:user) { Users::Creator.new.create_new_user(attributes_for :user) }
+  let(:user) { create :user }
 
   describe "POST /v1/memberships" do
 
     context "with a valid lobby id" do
-      let(:lobby) { Lobbies::Creator.new.create_with_user(user) }
+      let(:lobby) { create :lobby }
       let(:path)  { "/v1/memberships" }
-      before { post_with_access_token path, user.access_token, id: lobby.id }
+      before do
+        lobby.add_user(user)
+        post_with_access_token path, user.access_token, id: lobby.id
+      end
 
       it_behaves_like "a successfull response"
       it_behaves_like "a response with lobby data"

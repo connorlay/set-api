@@ -2,9 +2,11 @@ require 'rails_helper'
 
 RSpec.describe "Sets", type: :request do
 
-  let(:user)  { Users::Creator.new.create_new_user(attributes_for :user) }
-  let(:lobby) { Lobbies::Creator.new.create_with_user(user) }
+  let(:user)  { create :user }
+  let(:lobby) { create :lobby }
   let(:game)  { Games::Creator.new(lobby).create_new_game }
+
+  before { lobby.add_user(user) }
 
   describe "POST /v1/lobbies/:id/games/:id/sets" do
     let(:path) { "/v1/lobbies/#{lobby.id}/games/#{game.id}/sets" }

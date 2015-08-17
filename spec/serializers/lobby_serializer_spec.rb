@@ -2,8 +2,11 @@ require 'rails_helper'
 
 RSpec.describe LobbySerializer, type: :serializer do
 
-  let(:user)          { Users::Creator.new.create_new_user(attributes_for :user) }
-  let(:lobby)         { Lobbies::Creator.new.create_with_user(user) }
+  let(:user)          { create :user }
+  let(:lobby)         { create :lobby }
+
+  before { lobby.add_user(user) }
+
   let(:serializer)    { LobbySerializer.new(lobby) }
   let(:serialization) { ActiveModel::Serializer::Adapter.create(serializer) }
   let(:json)          { JSON.parse(serialization.to_json)['data'] }
@@ -18,7 +21,7 @@ RSpec.describe LobbySerializer, type: :serializer do
     expect(user_data['id']).to        eq user.id
     expect(user_data['name']).to      eq user.name
     expect(user_data['image_url']).to eq user.image_url
-    expect(user_data['score']).to     eq user.score_for(lobby)
+    expect(user_data['score']).to     eq lobby.score_for(user)
   end
 
 end
