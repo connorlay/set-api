@@ -2,13 +2,16 @@ class GameSerializer < ActiveModel::Serializer
   attributes :id, :board
 
   def board
-    dealer.get_cards(object.board)
+    object.board.map do |id|
+      card = cards.find_by_id(id)
+      { id: card.id, attributes: card.attributes }
+    end
   end
 
   private
 
-  def dealer
-    @dealer ||= Dealer.new
+  def cards
+    @cards ||= CardsFactory.create_cards
   end
 
 end

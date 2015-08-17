@@ -9,10 +9,10 @@ RSpec.describe "Games", type: :request do
   describe "GET /v1/lobbies/:id/games/:id" do
 
     context "with a valid lobby and game id" do
-      let(:game)  { create :game, lobby: lobby }
+      let(:game)  { create :game, lobby: lobby, deck: (0...81).to_a }
       let(:path)  { "/v1/lobbies/#{lobby.id}/games/#{game.id}" }
       before do
-        game.setup! deck: (0...81).to_a
+        game.setup!
         get_with_access_token path, user.access_token
       end
 

@@ -17,7 +17,7 @@ class Lobby < ActiveRecord::Base
   end
 
   def decrement_score_for(user)
-    memberships.find_by(user: user).decrememnt_score
+    memberships.find_by(user: user).decrement_score
   end
 
   def score_for(user)

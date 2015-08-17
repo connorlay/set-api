@@ -1,22 +1,25 @@
 require 'rails_helper'
 
-RSpec.describe Sets::Creator do
+RSpec.describe UserSubmitsASet do
 
   let(:user)    { create :user }
   let(:lobby)   { create :lobby }
-
   let(:game)    { create :game, lobby: lobby }
-  let(:creator) { Sets::Creator.new(lobby: lobby) }
+  let(:cards)   { CardsFactory.create_cards }
+
+  let(:interaction) { UserSubmitsASet.new(user: user, lobby: lobby) }
 
   before do
     lobby.add_user(user)
     game.update_attributes board: (0...12).to_a, deck: (12...81).to_a
   end
 
-  describe "#create_new_set" do
+  describe "#call" do
 
     context "with a valid set" do
-      before { creator.create_new_set cards: [ 0, 1, 2 ], user: user }
+      let(:set) { CardSet.new cards: cards.find_by_ids([ 0, 1, 2 ]) }
+
+      before { interaction.call(set) }
 
       it "increments the user's score" do
         expect(lobby.score_for(user)).to eq 1
@@ -27,7 +30,9 @@ RSpec.describe Sets::Creator do
     end
 
     context "with an invalid set" do
-      before { creator.create_new_set cards: [ 0, 1, 5 ], user: user }
+      let(:set) { CardSet.new cards: cards.find_by_ids([ 0, 1, 5 ]) }
+
+      before { interaction.call(set) }
 
       it "decrements the user's score" do
         expect(lobby.score_for(user)).to eq -1

@@ -10,7 +10,7 @@ class Membership < ActiveRecord::Base
     increment! :score
   end
 
-  def decrememnt_score
+  def decrement_score
     decrement! :score
   end
 

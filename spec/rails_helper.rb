@@ -3,8 +3,8 @@ ENV['RAILS_ENV'] ||= 'test'
 if ENV['RAILS_ENV'] == 'test'
   require 'simplecov'
   SimpleCov.start 'rails' do
-    add_group 'Services',    'app/services'
-    add_group 'Serializers', 'app/serializers'
+    add_group 'Interactions', 'app/interactions'
+    add_group 'Serializers',  'app/serializers'
   end
   puts "required simplecov"
 end
