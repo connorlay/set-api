@@ -8,19 +8,12 @@ class CardsTable
   end
 
   def find_by_id(id)
+    return nil unless ids.include? id
     OpenStruct.new id: id, attributes: cards[id]
   end
 
   def find_by_ids(ids)
     ids.map { |id| find_by_id(id) }
-  end
-
-  def find_by_cards(cards)
-    cards.map { |card| find_by_card(card) }
-  end
-
-  def find_by_card(card)
-    OpenStruct.new id: cards.index_of(card), attributes: card
   end
 
 end
