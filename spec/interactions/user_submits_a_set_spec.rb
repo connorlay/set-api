@@ -2,12 +2,12 @@ require 'rails_helper'
 
 RSpec.describe UserSubmitsASet do
 
-  let(:user)    { create :user }
-  let(:lobby)   { create :lobby }
-  let(:game)    { create :game, lobby: lobby }
+  let(:user)          { create :user }
+  let(:lobby)         { create :lobby }
+  let(:game)          { create :game, lobby: lobby }
   let(:cards_table)   { CardsTableFactory.create_cards }
 
-  let(:interaction) { UserSubmitsASet.new(user: user, lobby: lobby) }
+  let(:interaction)   { UserSubmitsASet.new(user: user, lobby: lobby) }
 
   before do
     lobby.add_user(user)
