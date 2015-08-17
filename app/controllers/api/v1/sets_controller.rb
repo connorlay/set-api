@@ -15,11 +15,11 @@ class Api::V1::SetsController < Api::V1::ApplicationController
   end
 
   def set_params
-     { cards: params[:cards].map { |id| cards.find_by_id(id.to_i) } }
+     { cards: params[:cards].map { |id| cards_table.find_by_id(id.to_i) } }
   end
 
-  def cards
-    @cards ||= CardsFactory.create_cards
+  def cards_table
+    @cards_table ||= CardsTableFactory.create_cards
   end
 
 end

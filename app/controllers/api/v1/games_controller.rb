@@ -4,7 +4,7 @@ class Api::V1::GamesController < Api::V1::ApplicationController
   before_action :check_existing_game,   only: [ :create ]
 
   def create
-    new_game = Game.create lobby: lobby, deck: cards.ids
+    new_game = Game.create lobby: lobby, deck: cards_table.ids
     new_game.setup!
     render json: new_game, serializer: GameSerializer
   end
@@ -23,8 +23,8 @@ class Api::V1::GamesController < Api::V1::ApplicationController
     @lobby ||= Lobby.find(params[:lobby_id])
   end
 
-  def cards
-    @cards ||= CardsFactory.create_cards
+  def cards_table
+    @cards_table ||= CardsTableFactory.create_cards
   end
 
   def check_existing_game

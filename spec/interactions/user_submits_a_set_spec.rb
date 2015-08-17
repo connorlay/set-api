@@ -5,7 +5,7 @@ RSpec.describe UserSubmitsASet do
   let(:user)    { create :user }
   let(:lobby)   { create :lobby }
   let(:game)    { create :game, lobby: lobby }
-  let(:cards)   { CardsFactory.create_cards }
+  let(:cards_table)   { CardsTableFactory.create_cards }
 
   let(:interaction) { UserSubmitsASet.new(user: user, lobby: lobby) }
 
@@ -17,7 +17,7 @@ RSpec.describe UserSubmitsASet do
   describe "#call" do
 
     context "with a valid set" do
-      let(:set) { CardSet.new cards: cards.find_by_ids([ 0, 1, 2 ]) }
+      let(:set) { CardSet.new cards: cards_table.find_by_ids([ 0, 1, 2 ]) }
 
       before { interaction.call(set) }
 
@@ -30,7 +30,7 @@ RSpec.describe UserSubmitsASet do
     end
 
     context "with an invalid set" do
-      let(:set) { CardSet.new cards: cards.find_by_ids([ 0, 1, 5 ]) }
+      let(:set) { CardSet.new cards: cards_table.find_by_ids([ 0, 1, 5 ]) }
 
       before { interaction.call(set) }
 

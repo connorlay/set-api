@@ -1,4 +1,4 @@
-module CardsFactory
+module CardsTableFactory
 
   DEFAULT_CONFIG = [
     [ :symbol,  [ :diamond, :sguiggle, :oval   ] ],
@@ -8,7 +8,7 @@ module CardsFactory
   ]
 
   def self.create_cards
-    Cards.new cards: permutations(DEFAULT_CONFIG).map(&:to_h)
+    CardsTable.new cards: permutations(DEFAULT_CONFIG).map(&:to_h)
   end
 
   private

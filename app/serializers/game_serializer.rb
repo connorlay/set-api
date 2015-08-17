@@ -11,7 +11,7 @@ class GameSerializer < ActiveModel::Serializer
   private
 
   def cards
-    @cards ||= CardsFactory.create_cards
+    @cards ||= CardsTableFactory.create_cards
   end
 
 end

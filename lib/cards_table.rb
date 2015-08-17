@@ -1,4 +1,4 @@
-class Cards
+class CardsTable
 
   attr_reader :cards, :ids
 
