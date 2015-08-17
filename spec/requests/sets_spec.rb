@@ -4,7 +4,7 @@ RSpec.describe "Sets", type: :request do
 
   let(:user)  { create :user }
   let(:lobby) { create :lobby }
-  let(:game)  { Games::Creator.new(lobby).create_new_game }
+  let(:game)  { create :game, lobby: lobby }
 
   before { lobby.add_user(user) }
 

@@ -5,7 +5,7 @@ RSpec.describe Sets::Creator do
   let(:user)    { create :user }
   let(:lobby)   { create :lobby }
 
-  let(:game)    { Games::Creator.new(lobby).create_new_game }
+  let(:game)    { create :game, lobby: lobby }
   let(:creator) { Sets::Creator.new(lobby: lobby) }
 
   before do
