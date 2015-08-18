@@ -2,8 +2,10 @@ require 'rails_helper'
 
 RSpec.describe LobbySerializer, type: :serializer do
 
-  let(:user)          { create :user }
-  let(:lobby)         { create :lobby }
+  let(:user)   { create :user }
+  let(:lobby)  { create :lobby }
+
+  let!(:game)  { create :game, lobby: lobby}
 
   before { lobby.add_user(user) }
 
@@ -22,6 +24,12 @@ RSpec.describe LobbySerializer, type: :serializer do
     expect(user_data['name']).to      eq user.name
     expect(user_data['image_url']).to eq user.image_url
     expect(user_data['score']).to     eq lobby.score_for(user)
+  end
+
+  it "returns the game" do
+    game_data = json['relationships']['game']['data']
+    expect(game_data['type']).to eq 'games'
+    expect(game_data['id']).to   eq game.id.to_s
   end
 
 end
