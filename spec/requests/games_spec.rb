@@ -42,7 +42,7 @@ RSpec.describe "Games", type: :request do
       let!(:game) { create :game, lobby: lobby }
       before { post_with_access_token path, user.access_token }
 
-      it_behaves_like "a conflict error"
+      it_behaves_like "an unprocessable entity error"
     end
   end
 

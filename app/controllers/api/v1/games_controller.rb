@@ -28,7 +28,7 @@ class Api::V1::GamesController < Api::V1::ApplicationController
   end
 
   def check_existing_game
-    conflict_error if lobby.game.present?
+    unprocessable_entity_error if lobby.game.present?
   end
 
 end

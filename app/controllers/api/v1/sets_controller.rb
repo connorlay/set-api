@@ -1,6 +1,7 @@
 class Api::V1::SetsController < Api::V1::ApplicationController
 
   before_action :check_user_membership
+  before_action :check_game_status
 
   def create
     set = CardSet.new(set_params)
@@ -20,6 +21,10 @@ class Api::V1::SetsController < Api::V1::ApplicationController
 
   def cards_table
     @cards_table ||= CardsTableFactory.create_cards_table
+  end
+
+  def check_game_status
+    unprocessable_entity_error if lobby.game.finished?
   end
 
 end

@@ -34,8 +34,8 @@ class Api::V1::ApplicationController < ActionController::API
     render json: { error: I18n.t('errors.404') }, status: 404
   end
 
-  def conflict_error
-    render json: { error: I18n.t('errors.409') }, status: 409
+  def unprocessable_entity_error
+    render json: { error: I18n.t('errors.422') }, status: 422
   end
 
 end

@@ -2,4 +2,4 @@ en:
   errors:
     :401: "Authorization error."
     :404: "Resource does not exist."
-    :409: "Resource conflict."
+    :422: "Unprocessable entity."

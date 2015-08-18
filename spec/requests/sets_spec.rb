@@ -76,6 +76,15 @@ RSpec.describe "Sets", type: :request do
 
         it_behaves_like "an authorization error"
       end
+
+      context "when the game is finished" do
+        before do
+          game.finished!
+          post_with_access_token path, user.access_token, cards: [0, 1, 2]
+        end
+
+        it_behaves_like "an unprocessable entity error"
+      end
     end
 
   end

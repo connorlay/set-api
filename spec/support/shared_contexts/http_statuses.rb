@@ -15,11 +15,11 @@ RSpec.shared_context "an existance error" do
 
 end
 
-RSpec.shared_context "a conflict error" do
+RSpec.shared_context "an unprocessable entity error" do
 
-  it "returns a 409 status code" do
-    expect(response).to have_http_status 409
-    expect(json['error']).to eq I18n.t('errors.409')
+  it "returns a 422 status code" do
+    expect(response).to have_http_status 422
+    expect(json['error']).to eq I18n.t('errors.422')
   end
 
 end
