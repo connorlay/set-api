@@ -2,9 +2,7 @@ class CardSet
 
   include ActiveModel::Model
 
-  validates :cards, presence: true, array_length: 3
-
-  validates_with SetValidator, if: -> { cards.present? }
+  validates :cards, presence: true, array_length: { is: 3 }, set: true
 
   attr_accessor :cards
 
