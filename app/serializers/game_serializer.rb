@@ -1,5 +1,5 @@
 class GameSerializer < ActiveModel::Serializer
-  attributes :id, :board
+  attributes :id, :board, :status
 
   def board
     object.board.map do |id|

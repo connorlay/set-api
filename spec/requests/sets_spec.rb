@@ -33,6 +33,41 @@ RSpec.describe "Sets", type: :request do
         expect(json['data']['attributes']['board'].map { |card| card['id'] }).to eq (0...12).to_a
       end
     end
-  end
 
+    context "when the deck is empty" do
+      before { game.update_attributes deck: [] }
+
+      context "when there are other sets on the board" do
+        before { post_with_access_token path, user.access_token, cards: [0, 1, 2] }
+
+        it_behaves_like "a successfull response"
+        it_behaves_like "a response with game data"
+
+        it "does not have new cards on the board" do
+          expect(json['data']['attributes']['board'].map { |card| card['id']}).to eq (3...12).to_a
+        end
+        it "does not change the game status" do
+          expect(json['data']['attributes']['status']).to eq 'active'
+        end
+      end
+
+      context "when there are no other sets on the board" do
+        before do
+          game.update_attributes board: [0, 1, 2, 5, 6, 10]
+          post_with_access_token path, user.access_token, cards: [0, 1, 2]
+        end
+
+        it_behaves_like "a successfull response"
+        it_behaves_like "a response with game data"
+
+        it "does not have new cards on the board" do
+          expect(json['data']['attributes']['board'].map { |card| card['id']}).to eq [5, 6, 10]
+        end
+        it "changes the game state" do
+          expect(json['data']['attributes']['status']).to eq 'finished'
+        end
+      end
+    end
+
+  end
 end
