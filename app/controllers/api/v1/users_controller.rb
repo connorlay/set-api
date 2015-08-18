@@ -1,10 +1,13 @@
-module Api::V1
-  class UsersController < ApplicationController
+class Api::V1::UsersController < Api::V1::ApplicationController
 
-    def show
-      user = User.find(params['id'])
-      render json: user, serializer: UserSerializer
-    end
-
+  def show
+    render json: user, serializer: UserSerializer
   end
+
+  private
+
+  def user
+    @user ||= User.find(params[:id])
+  end
+
 end

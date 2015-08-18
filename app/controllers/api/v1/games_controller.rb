@@ -1,31 +1,34 @@
-module Api::V1
-  class GamesController < ApplicationController
+class Api::V1::GamesController < Api::V1::ApplicationController
 
-    before_action :conflict_error, if: -> { lobby.game.present? },
-                                   only: [ :create ]
-    before_action :check_user_membership, only: [ :show ]
+  before_action :check_user_membership, only: [ :show ]
+  before_action :check_existing_game,   only: [ :create ]
 
-    def create
-      render json: lobby.create_game, serializer: GameSerializer
-    end
-
-    def show
-      render json: game, serializer: GameSerializer
-    end
-
-    private
-
-    def game
-      @game ||= Game.find(params[:id])
-    end
-
-    def lobby
-      @lobby ||= Lobby.find(params[:lobby_id])
-    end
-
-    def check_user_membership
-      authentication_error unless lobby.has_user?(current_user)
-    end
-
+  def create
+    new_game = Game.create lobby: lobby, deck: cards_table.ids
+    new_game.setup!
+    render json: new_game, serializer: GameSerializer
   end
+
+  def show
+    render json: game, serializer: GameSerializer
+  end
+
+  private
+
+  def game
+    @game ||= Game.find(params[:id])
+  end
+
+  def lobby
+    @lobby ||= Lobby.find(params[:lobby_id])
+  end
+
+  def cards_table
+    @cards_table ||= CardsTableFactory.create_cards
+  end
+
+  def check_existing_game
+    conflict_error if lobby.game.present?
+  end
+
 end

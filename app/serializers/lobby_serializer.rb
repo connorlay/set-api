@@ -1,7 +1,13 @@
 class LobbySerializer < ActiveModel::Serializer
 
-  attributes :id, :created_at
+  attributes :id
 
   has_many :users
+
+  def users
+    object.users.map do |user|
+      UserSerializer.new(user).attributes.merge(score: object.score_for(user))
+    end
+  end
 
 end

@@ -23,7 +23,10 @@ module SetApi
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 
-    config.paths['lib'].autoload!
+    config.autoload_paths += %W(
+      #{config.root}/lib
+      #{config.root}/app
+    )
 
     config.api_only = false
     config.session_store :cookie_store

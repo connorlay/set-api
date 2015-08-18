@@ -6,4 +6,12 @@ class Membership < ActiveRecord::Base
   belongs_to :user
   belongs_to :lobby
 
+  def increment_score
+    increment! :score
+  end
+
+  def decrement_score
+    decrement! :score
+  end
+
 end

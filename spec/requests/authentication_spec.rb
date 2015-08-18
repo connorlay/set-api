@@ -6,7 +6,7 @@ RSpec.describe "Authentication", type: :request do
     before  { get "/auth/facebook" }
     subject { response }
 
-    it { is_expected.to have_http_status 302 }
+    it_behaves_like "a redirection"
     it { is_expected.to redirect_to "/auth/facebook/callback" }
   end
 
@@ -25,7 +25,6 @@ RSpec.describe "Authentication", type: :request do
         expect(response).to have_http_status 200
         expect(json["access_token"]).to eq User.find_by(uid: user.uid).access_token
       end
-
     end
 
     context "with a returning user" do
@@ -38,7 +37,7 @@ RSpec.describe "Authentication", type: :request do
           User.count
         }
         expect(response).to have_http_status 200
-        expect(json["access_token"]).to eq user.access_token
+        expect(json["access_token"]).to eq user.reload.access_token
       end
     end
 

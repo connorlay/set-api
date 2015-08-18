@@ -9,22 +9,15 @@ RSpec.describe "Users", type: :request do
       let(:path) { "/v1/users/#{user.id}" }
       before { get_with_access_token path, user.access_token }
 
-      it "responds with user data" do
-        expect(response).to have_http_status 200
-        expect(json['data']['type']).to eq "users"
-        expect(json['data']['attributes']['name']).to eq user.name
-        expect(json['data']['attributes']['image_url']).to eq user.image_url
-      end
+      it_behaves_like "a successfull response"
+      it_behaves_like "a response with user data"
     end
 
     context "with an invalid user id" do
       let(:path) { "/v1/users/bogus_id" }
       before { get_with_access_token path, user.access_token }
 
-      it "responds with an error" do
-        expect(response).to have_http_status 404
-        expect(json['error']).to eq I18n.t('errors.404')
-      end
+      it_behaves_like "an existance error"
     end
   end
 end

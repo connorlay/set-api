@@ -3,10 +3,10 @@ class User < ActiveRecord::Base
   validates :uid, :name, :oauth_token, :oauth_expires_at, presence: true
   validates :uid, :access_token, uniqueness: true
 
-  after_create :update_access_token!
-
   has_many :memberships
   has_many :lobbies, through: :memberships
+
+  after_create :setup!
 
   class << self
 
@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
     end
 
     def from_omniauth(auth)
-      find_or_initialize_by(uid: auth.uid).tap do |user|
+      User.find_or_initialize_by(uid: auth.uid).tap do |user|
         user.uid              = auth.uid
         user.name             = auth.info.name
         user.image_url        = auth.info.image
@@ -29,10 +29,8 @@ class User < ActiveRecord::Base
 
   private
 
-  def update_access_token!
-    self.access_token = AccessTokens::new_access_token(self)
-    self.save!
+  def setup!
+    update_attributes access_token: AccessTokens.new_access_token(self)
   end
-
 
 end

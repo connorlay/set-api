@@ -7,17 +7,4 @@ RSpec.describe Lobby, type: :model do
   it { is_expected.to have_many :users }
   it { is_expected.to have_one  :game }
 
-  describe "#add_user" do
-    let(:user) { create :user }
-
-    it "add the user as a member" do
-      expect {
-        subject.add_user user
-      }.to change {
-        Membership.count
-      }.by 1
-      expect(subject.users).to include user
-    end
-  end
-
 end

@@ -8,7 +8,9 @@ Rails.application.routes.draw do
 
       resources :users, only: [ :show ]
       resources :lobbies, only: [ :create, :show ] do
-        resources :games, only: [ :show, :update, :create ]
+        resources :games, only: [ :show, :create ] do
+          resources :sets, only: [ :create ]
+        end
       end
       resources :memberships, only: [ :create ]
 
