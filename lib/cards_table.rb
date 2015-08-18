@@ -2,8 +2,8 @@ class CardsTable
 
   attr_reader :cards, :ids
 
-  def initialize(args)
-    @cards = args[:cards]
+  def initialize(cards:)
+    @cards = cards
     @ids   = (0...cards.size).to_a
   end
 
