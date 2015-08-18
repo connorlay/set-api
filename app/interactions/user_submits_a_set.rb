@@ -1,10 +1,10 @@
 class UserSubmitsASet
 
-  attr_reader :lobby, :user, :set
+  attr_reader :lobby, :user
 
-  def initialize(args)
-    @lobby = args[:lobby]
-    @user  = args[:user]
+  def initialize(lobby:, user:)
+    @lobby = lobby
+    @user  = user
   end
 
   def call(set)
@@ -16,6 +16,7 @@ class UserSubmitsASet
       else
         lobby.decrement_score_for(user)
       end
+      check_game_state
     end
   end
 
@@ -23,6 +24,19 @@ class UserSubmitsASet
 
   def game
     @game ||= lobby.game
+  end
+
+  def set_finder
+    @set_finder ||= SetFinder.new(cards_table.find_by_ids(game.board))
+  end
+
+  def cards_table
+    @cards_table ||= CardsTableFactory.create_cards_table
+  end
+  
+  def check_game_state
+    game.deck_to_board(3) unless set_finder.set?
+    game.finished! if game.deck.empty? && !set_finder.set?
   end
 
 end

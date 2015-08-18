@@ -24,7 +24,7 @@ class Api::V1::GamesController < Api::V1::ApplicationController
   end
 
   def cards_table
-    @cards_table ||= CardsTableFactory.create_cards
+    @cards_table ||= CardsTableFactory.create_cards_table
   end
 
   def check_existing_game

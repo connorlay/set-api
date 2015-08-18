@@ -7,7 +7,7 @@ module CardsTableFactory
     [ :shading, [ :solid,   :striped,  :open   ] ]
   ]
 
-  def self.create_cards
+  def self.create_cards_table
     CardsTable.new cards: permutations(DEFAULT_CONFIG).map(&:to_h)
   end
 

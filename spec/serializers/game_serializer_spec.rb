@@ -7,7 +7,7 @@ RSpec.describe GameSerializer, type: :serializer do
   let(:serialization) { ActiveModel::Serializer::Adapter.create(serializer) }
   let(:json)          { JSON.parse(serialization.to_json)['data'] }
 
-  let(:cards) { CardsTableFactory.create_cards }
+  let(:cards) { CardsTableFactory.create_cards_table }
 
   it "returns a serialized game" do
     expect(json['type']).to eq 'games'

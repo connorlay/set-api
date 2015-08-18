@@ -4,9 +4,15 @@ class Game < ActiveRecord::Base
 
   belongs_to :lobby
 
+  STATUSES = [ :active, :finished ]
+
+  enum status: STATUSES
+
   def deck_to_board(n)
-    n.times { board << deck.shift }
-    save!
+    unless deck.empty?
+      n.times { board << deck.shift }
+      save!
+    end
   end
 
   def remove_from_board(ids)

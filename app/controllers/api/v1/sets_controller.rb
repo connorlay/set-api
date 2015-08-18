@@ -19,7 +19,7 @@ class Api::V1::SetsController < Api::V1::ApplicationController
   end
 
   def cards_table
-    @cards_table ||= CardsTableFactory.create_cards
+    @cards_table ||= CardsTableFactory.create_cards_table
   end
 
 end

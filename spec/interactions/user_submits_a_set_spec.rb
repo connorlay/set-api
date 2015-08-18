@@ -5,7 +5,7 @@ RSpec.describe UserSubmitsASet do
   let(:user)          { create :user }
   let(:lobby)         { create :lobby }
   let(:game)          { create :game, lobby: lobby }
-  let(:cards_table)   { CardsTableFactory.create_cards }
+  let(:cards_table)   { CardsTableFactory.create_cards_table }
 
   let(:interaction)   { UserSubmitsASet.new(user: user, lobby: lobby) }
 
@@ -16,10 +16,11 @@ RSpec.describe UserSubmitsASet do
 
   describe "#call" do
 
-    context "with a valid set" do
-      let(:set) { CardSet.new cards: cards_table.find_by_ids([ 0, 1, 2 ]) }
+    let(:valid_set)   { CardSet.new cards: cards_table.find_by_ids([ 0, 1, 2 ]) }
+    let(:invalid_set) { CardSet.new cards: cards_table.find_by_ids([ 0, 1, 5 ]) }
 
-      before { interaction.call(set) }
+    context "with a valid set" do
+      before { interaction.call(valid_set) }
 
       it "increments the user's score" do
         expect(lobby.score_for(user)).to eq 1
@@ -30,9 +31,7 @@ RSpec.describe UserSubmitsASet do
     end
 
     context "with an invalid set" do
-      let(:set) { CardSet.new cards: cards_table.find_by_ids([ 0, 1, 5 ]) }
-
-      before { interaction.call(set) }
+      before { interaction.call(invalid_set) }
 
       it "decrements the user's score" do
         expect(lobby.score_for(user)).to eq -1
@@ -40,6 +39,36 @@ RSpec.describe UserSubmitsASet do
       it "does not update the board" do
         expect(game.board).to eq (0...12).to_a
       end
+    end
+
+    context "when the deck is empty" do
+      before { game.update_attributes deck: [] }
+
+      context "when there are other sets left" do
+        before { interaction.call(valid_set) }
+
+        it "does not add more cards" do
+          expect(game.board).to eq (3...12).to_a
+        end
+        it "does not change the game state" do
+          expect(game).to be_active
+        end
+      end
+
+      context "when there are no other sets left" do
+        before do
+          game.update_attributes board: [0, 1, 2, 5, 6, 10]
+          interaction.call(valid_set)
+        end
+
+        it "does not add more cards" do
+          expect(game.board).to eq [5, 6, 10]
+        end
+        it "changes the game state" do
+          expect(game).to be_finished
+        end
+      end
+
     end
   end
 end
