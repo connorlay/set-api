@@ -23,7 +23,7 @@ class Api::V1::ApplicationController < ActionController::API
   end
 
   def check_user_membership
-    authorization_error unless lobby.has_user?(current_user)
+    authorization_error unless lobby.user?(current_user)
   end
 
   def authorization_error

@@ -67,6 +67,15 @@ RSpec.describe "Sets", type: :request do
           expect(json['data']['attributes']['status']).to eq 'finished'
         end
       end
+
+      context "when the user is not a member" do
+        before do
+          lobby.remove_user(user)
+          post_with_access_token path, user.access_token, cards: [0, 1, 2]
+        end
+
+        it_behaves_like "an authorization error"
+      end
     end
 
   end

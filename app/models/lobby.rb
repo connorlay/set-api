@@ -4,7 +4,7 @@ class Lobby < ActiveRecord::Base
   has_many :users, through: :memberships
   has_one  :game
 
-  def has_user?(user)
+  def user?(user)
     users.include? user
   end
 
@@ -12,16 +12,26 @@ class Lobby < ActiveRecord::Base
     memberships.create(user: user)
   end
 
+  def remove_user(user)
+    membership_for(user).destroy
+  end
+
   def increment_score_for(user)
-    memberships.find_by(user: user).increment_score
+    membership_for(user).increment_score
   end
 
   def decrement_score_for(user)
-    memberships.find_by(user: user).decrement_score
+    membership_for(user).decrement_score
   end
 
   def score_for(user)
-    memberships.find_by(user: user).score
+    membership_for(user).score
+  end
+
+  private
+
+  def membership_for(user)
+    memberships.find_by(user: user)
   end
 
 end
