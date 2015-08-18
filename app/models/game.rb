@@ -15,7 +15,7 @@ class Game < ActiveRecord::Base
   end
 
   def setup!
-    self.deck.shuffle!
+    deck.shuffle!
     deck_to_board(12)
     save!
   end
