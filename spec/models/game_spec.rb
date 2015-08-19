@@ -41,5 +41,16 @@ RSpec.describe Game, type: :model do
     end
   end
 
+  describe "#remove_from_board" do
+    before do
+      subject.update_attributes board: [0, 1, 2], deck: (3...81).to_a
+      subject.remove_from_board([0, 1, 2])
+    end
+
+    it "removes the cards from the deck" do
+      expect(subject.board).to be_empty
+    end
+  end
+
 
 end
