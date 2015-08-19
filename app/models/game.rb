@@ -9,10 +9,8 @@ class Game < ActiveRecord::Base
   enum status: STATUSES
 
   def deck_to_board(n)
-    unless deck.empty?
-      n.times { board << deck.shift }
-      save!
-    end
+    n.times { board << deck.shift unless deck.empty? }
+    save!
   end
 
   def remove_from_board(ids)
