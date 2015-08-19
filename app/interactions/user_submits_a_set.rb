@@ -16,7 +16,8 @@ class UserSubmitsASet
       else
         lobby.decrement_score_for(user)
       end
-      check_game_state
+      game.deck_to_board(3) unless set_finder.set?
+      game.finished! if game.deck.empty? && !set_finder.set?
     end
   end
 
@@ -32,11 +33,6 @@ class UserSubmitsASet
 
   def cards_table
     @cards_table ||= CardsTableFactory.create_cards_table
-  end
-  
-  def check_game_state
-    game.deck_to_board(3) unless set_finder.set?
-    game.finished! if game.deck.empty? && !set_finder.set?
   end
 
 end
